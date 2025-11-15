@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Counter</title>
+    <style>
+        body { font-family: 'Courier New', Courier, monospace; margin: 20px; }
+        #textarea { width: 90%; height: 200px; }
+        .feedback { margin-top: 10px; font-size: 16px; }
+        .warning { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Counter of Characters</h1>
+    <textarea id="textarea" maxlength="1024" placeholder="Type here..."></textarea>
+    <div class="feedback">
+        <span id="remChars"> Remaining characters out of 1024.</span>
+    </div>
+
+
+    <script>
+        const textarea = document.getElementById('textarea');
+        const remChars = document.getElementById('remChars');
+        const maxLength = 1024;
+
+        textarea.addEventListener('input', () => {
+        const charsUsed = textarea.value.length;
+        const charsLeft = maxLength - charsUsed;
+
+        remChars.textContent = charsLeft;
+
+        if (charsLeft <= 0) {
+            remChars.classList.add('warning');
+        }   else  {
+            remChars.classList.remove('warning');
+        }
+    });
+
+    </script>
+</body>
+</html>
