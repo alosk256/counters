@@ -6,28 +6,33 @@
     <title>Character Counter</title>
     <style>
         body { font-family: 'Courier New', Courier, monospace; margin: 20px; }
-        #textarea { width: 90%; height: 200px; }
+        #textarea { width: 90%; height: 200px; font-family: 'Courier New', Courier, monospace;}
         .feedback { margin-top: 10px; font-size: 16px; }
         .warning { color: red; }
+        .typedChars { color: purple ; }
     </style>
 </head>
 <body>
     <h1>Counter of Characters</h1>
     <textarea id="textarea" maxlength="1024" placeholder="Type here..."></textarea>
     <div class="feedback">
-        <span id="remChars"> Remaining characters out of 1024.</span>
+        <span id="typedChars">Typed characters</span>
+        <br>
+        <span id="remChars">Remaining characters</span>
     </div>
 
 
     <script>
         const textarea = document.getElementById('textarea');
         const remChars = document.getElementById('remChars');
+        const typedChars = document.getElementById('typedChars');
         const maxLength = 1024;
 
         textarea.addEventListener('input', () => {
         const charsUsed = textarea.value.length;
         const charsLeft = maxLength - charsUsed;
-
+        
+        typedChars.textContent = charsUsed;
         remChars.textContent = charsLeft;
 
         if (charsLeft <= 0) {
