@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiply BigInt Numbers</title>
+    <style>
+        #result {
+            overflow-wrap:anywhere;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        input {
+            width: 90%;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body>
+    <h2>Multiply two numbers</h2>
+    <p>The result will write out the entire number without resorting to scientific notation.</p>
+    <input id="numberInput1" type="text"><br>
+    <input id="numberInput2" type="text"><br>
+
+    <button onclick="multiply()">Multiply</button>
+    <p id="result"></p>
+
+    <script>
+
+        function multiply() {
+            /*
+            This line finds the input box on the page.
+            document
+                represents the entire web page.
+            getElementById("numberInput")
+                finds the HTML element with specified id
+            .value 
+                retreives the user-entered text from the box
+            BigInt() 
+                converts that text into a BigInt number so js can handle large integers
+            */
+            const number1 = BigInt(document.getElementById("numberInput1").value);
+            const number2 = BigInt(document.getElementById("numberInput2").value);
+
+
+            const result = number1 * number2;
+            /*
+            Display result on the page. 
+            getElementById("result")
+                finds the paragraph where to display output
+            
+            */
+            document.getElementById("result").innerText = result.toString();
+        }
+
+    </script>
+</body>
+</html>
