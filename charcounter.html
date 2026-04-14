@@ -14,7 +14,9 @@
 </head>
 <body>
     <h1>Counter of Characters</h1>
-    <textarea id="textarea" maxlength="1024" placeholder="Type here..."></textarea>
+    <br>
+    <p>Max length is 4095</p>
+    <textarea id="textarea" maxlength="4095" placeholder="Type here..."></textarea>
     <div class="feedback">
         <span id="typedChars">Typed characters</span>
         <br>
@@ -26,7 +28,7 @@
         const textarea = document.getElementById('textarea');
         const remChars = document.getElementById('remChars');
         const typedChars = document.getElementById('typedChars');
-        const maxLength = 1024;
+        const maxLength = 4095;
 
         textarea.addEventListener('input', () => {
         const charsUsed = textarea.value.length;
