@@ -13,9 +13,10 @@
     </style>
 </head>
 <body>
-    <h1>Counter of Characters</h1>
+    <h1>Character Counter</h1>
     <br>
-    <p>Max length is 4095</p>
+    <p>Max length is <span id="maxLengthDisplay">4095</span></p>
+    <input type="number" id="maxLengthInput" value="4095" min="1">
     <textarea id="textarea" maxlength="4095" placeholder="Type here..."></textarea>
     <div class="feedback">
         <span id="typedChars">Typed characters</span>
@@ -25,24 +26,55 @@
 
 
     <script>
+        // Get references to DOM elements
         const textarea = document.getElementById('textarea');
         const remChars = document.getElementById('remChars');
         const typedChars = document.getElementById('typedChars');
-        const maxLength = 4095;
-
-        textarea.addEventListener('input', () => {
-        const charsUsed = textarea.value.length;
-        const charsLeft = maxLength - charsUsed;
+        const maxLengthInput = document.getElementById('maxLengthInput');
+        const maxLengthDisplay = document.getElementById('maxLengthDisplay');
         
-        typedChars.textContent = charsUsed;
-        remChars.textContent = charsLeft;
+        // Initialize the maximum length
+        let maxLength = 4095;
+        textarea.maxLength = maxLength;
 
-        if (charsLeft <= 0) {
-            remChars.classList.add('warning');
-        }   else  {
-            remChars.classList.remove('warning');
-        }
-    });
+        // Event listener for changes to the max length input
+        maxLengthInput.addEventListener('input', () => {
+            // Update the max length based on user input, default to 4095 if invalid
+            maxLength = parseInt(maxLengthInput.value) || 4095;
+            // Set the textarea's maxlength attribute
+            textarea.maxLength = maxLength;
+            // Update the display of the max length
+            maxLengthDisplay.textContent = maxLength;
+            // Recalculate and update the character counts
+            const charsUsed = textarea.value.length;
+            const charsLeft = maxLength - charsUsed;
+            typedChars.textContent = charsUsed;
+            remChars.textContent = charsLeft;
+            // Add or remove warning class based on remaining characters
+            if (charsLeft <= 0) {
+                remChars.classList.add('warning');
+            } else {
+                remChars.classList.remove('warning');
+            }
+        });
+
+        // Event listener for input in the textarea
+        textarea.addEventListener('input', () => {
+            // Calculate characters used and remaining
+            const charsUsed = textarea.value.length;
+            const charsLeft = maxLength - charsUsed;
+            
+            // Update the display elements
+            typedChars.textContent = charsUsed;
+            remChars.textContent = charsLeft;
+
+            // Apply warning style if no characters left
+            if (charsLeft <= 0) {
+                remChars.classList.add('warning');
+            } else {
+                remChars.classList.remove('warning');
+            }
+        });
 
     </script>
 </body>
