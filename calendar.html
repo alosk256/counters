@@ -25,20 +25,24 @@
     <h2 id="count"></h2>
     <ul id="dates"></ul>
     <script>
+        // References to the form controls and output elements
         const weekdaySelect = document.getElementById('weekday');
         const yearInput = document.getElementById('year');
         const countDisplay = document.getElementById('count');
         const datesList = document.getElementById('dates');
 
+        // Calculate and display the selected weekday occurrences for the chosen year
         function updateCalendar() {
-            const weekday = parseInt(weekdaySelect.value);
-            const year = parseInt(yearInput.value);
-            const firstDayOfYear = new Date(year, 0, 1).getDay();
-            let count = 0;
-            let dates = [];
+            const weekday = parseInt(weekdaySelect.value, 10); // selected day of week (0-6)
+            const year = parseInt(yearInput.value, 10); // year entered by the user
+            let count = 0; // number of matching weekdays in the year
+            let dates = []; // list of matching dates in MM/DD format
 
+            // Loop through each month and each day of that month
             for (let month = 0; month < 12; month++) {
-                for (let day = 1; day <= new Date(year, month + 1, 0).getDate(); day++) {
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                for (let day = 1; day <= daysInMonth; day++) {
+                    // Check whether this date falls on the selected weekday
                     if (new Date(year, month, day).getDay() === weekday) {
                         count++;
                         dates.push(`${month + 1}/${day}`);
@@ -46,13 +50,18 @@
                 }
             }
 
+            // Update the summary text to show the count and weekday name
             countDisplay.textContent = `There are ${count} ${weekdaySelect.options[weekday].text}s in ${year}.`;
+            // Render the list of matching dates
             datesList.innerHTML = dates.map(date => `<li>${date}</li>`).join('');
         }
 
+        // Recalculate whenever the weekday selection changes
         weekdaySelect.addEventListener('change', updateCalendar);
+        // Recalculate whenever the year input changes
         yearInput.addEventListener('input', updateCalendar);
 
+        // Initial render on page load
         updateCalendar();
     </script>
 </body>
