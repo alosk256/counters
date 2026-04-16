@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label>
+        Weekday:
+        <select id="weekday">
+            <option value="0">Sunday</option>
+            <option value="1">Monday</option>
+            <option value="2">Tuesday</option>
+            <option value="3">Wednesday</option>
+            <option value="4">Thursday</option>
+            <option value="5">Friday</option>
+            <option value="6">Saturday</option>
+        </select>
+    </label>
+    <label>
+        Year:
+        <input type="number" id="year" min="1" max="9999" value="2026">
+    </label>
+    <h2 id="count"></h2>
+    <ul id="dates"></ul>
+    <script>
+        const weekdaySelect = document.getElementById('weekday');
+        const yearInput = document.getElementById('year');
+        const countDisplay = document.getElementById('count');
+        const datesList = document.getElementById('dates');
+
+        function updateCalendar() {
+            const weekday = parseInt(weekdaySelect.value);
+            const year = parseInt(yearInput.value);
+            const firstDayOfYear = new Date(year, 0, 1).getDay();
+            let count = 0;
+            let dates = [];
+
+            for (let month = 0; month < 12; month++) {
+                for (let day = 1; day <= new Date(year, month + 1, 0).getDate(); day++) {
+                    if (new Date(year, month, day).getDay() === weekday) {
+                        count++;
+                        dates.push(`${month + 1}/${day}`);
+                    }
+                }
+            }
+
+            countDisplay.textContent = `There are ${count} ${weekdaySelect.options[weekday].text}s in ${year}.`;
+            datesList.innerHTML = dates.map(date => `<li>${date}</li>`).join('');
+        }
+
+        weekdaySelect.addEventListener('change', updateCalendar);
+        yearInput.addEventListener('input', updateCalendar);
+
+        updateCalendar();
+    </script>
+</body>
+</html>
