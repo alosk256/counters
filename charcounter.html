@@ -17,6 +17,7 @@
     <br>
     <p>Max length is <span id="maxLengthDisplay">4095</span></p>
     <input type="number" id="maxLengthInput" value="4095" min="1">
+    <button onclick="selectAllText()">Copy to Clipboard</button>
     <textarea id="textarea" maxlength="4095" placeholder="Type here..."></textarea>
     <div class="feedback">
         <span id="typedChars">Typed characters</span>
@@ -34,7 +35,7 @@
         const maxLengthDisplay = document.getElementById('maxLengthDisplay');
         
         // Initialize the maximum length
-        let maxLength = 4095;
+        const maxLength = 4095;
         textarea.maxLength = maxLength;
 
         // Event listener for changes to the max length input
@@ -75,6 +76,13 @@
                 remChars.classList.remove('warning');
             }
         });
+
+        // Function to select all text in the textarea and copy it to the clipboard
+        function selectAllText() {
+            textarea.focus();
+            textarea.select();
+            navigator.clipboard.writeText(textarea.value);
+        }
 
     </script>
 </body>
