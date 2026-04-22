@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Fibonacci Sequence Generator</h1>
+    <label for="count">Enter the number of Fibonacci numbers to generate:</label>
+    <input type="number" id="count" min="1" value="10">
+    <button onclick="generateFibonacci()">Generate</button>
+    <ul id="output"></ul>
+
+    <script>
+        function generateFibonacci() {
+            // Get the number of Fibonacci numbers to generate from user input
+            const count = parseInt(document.getElementById('count').value, 10);
+            const output = document.getElementById('output');
+            output.innerHTML = '';
+
+            // Initialize the first two Fibonacci numbers
+            let a = 0, b = 1;
+            // Generate Fibonacci numbers up to the specified count
+            for (let i = 0; i < count; i++) {
+                // Create a new list item for the current Fibonacci number and add it to the output list
+                const li = document.createElement('li');
+                li.textContent = a;
+                output.appendChild(li);
+                // a becomes b, and b becomes a + b (the next Fibonacci number)
+                [a, b] = [b, a + b];
+            }
+        }
+    </script>
+</body>
+</html>
