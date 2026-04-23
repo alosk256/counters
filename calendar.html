@@ -34,15 +34,15 @@
         // Calculate and display the selected weekday occurrences for the chosen year
         function updateCalendar() {
             const weekday = parseInt(weekdaySelect.value, 10); // selected day of week (0-6)
-            const year = parseInt(yearInput.value, 10); // year entered by the user
+            const year = parseInt(yearInput.value, 10); // selected year user
             let count = 0; // number of matching weekdays in the year
             let dates = []; // list of matching dates in MM/DD format
 
-            // Loop through each month and each day of that month
+            // Loop through each month of the selected year, and each day of that month
             for (let month = 0; month < 12; month++) {
                 const daysInMonth = new Date(year, month + 1, 0).getDate();
                 for (let day = 1; day <= daysInMonth; day++) {
-                    // Check whether this date falls on the selected weekday
+                    // Check whether this date falls on the selected weekday and add them to the dates array
                     if (new Date(year, month, day).getDay() === weekday) {
                         count++;
                         dates.push(`${month + 1}/${day}`);
@@ -50,7 +50,7 @@
                 }
             }
 
-            // Update the summary text to show the count and weekday name
+            // Update summary text to show the count and weekday name
             countDisplay.textContent = `There are ${count} ${weekdaySelect.options[weekday].text}s in ${year}.`;
             // Render the list of matching dates
             datesList.innerHTML = dates.map(date => `<li>${date}</li>`).join('');
